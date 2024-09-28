@@ -27,15 +27,21 @@ class Hall(Star_Cinema):
 
     def book_seats(self,show_id,list):
         for key,values in self.seats.items():
-            if show_id==key:
-                if values[list[0]][list[1]]==1:
+            if show_id == key:
+
+
+                if list[0] >= self.rows or list[1] >=self.cols:
+                    print("Invalid seat selection")
+                    return
+                
+                if values[list[0]][list[1]] == 1:
                     print("seat are already booked")
                 else:
                    print("seat booked succesfully")
-                   values[list[0]][list[1]]==1
+                   values[list[0]][list[1]] =1
                    return
             else :
-                print("Invalid")
+                print("Invalid ID")
                 return
 
     def view_show_list(self):
@@ -48,11 +54,16 @@ class Hall(Star_Cinema):
                 print("Invalid ID")
                 return
             else:
-                for x in value:
-                    print(x)
+                for row_index in range(len(value)):
+                    row=value[row_index]
+                    for col_index in range(len(row)):
+                        seat_status ="Available" if row[col_index] == 0 else "Booked"
+                        print(f"({row_index},{col_index})-{seat_status}",end=" ")
+                    print()
                 return
-            
-
+                
+       
+           
 hall1= Hall(5,5,121)
 hall1.entry_show(111,'the dark knight(111)','25/10/2023 11.00 AM')
 hall1.entry_show(333,'black(333)','25/10/2023 2.00 AM')
